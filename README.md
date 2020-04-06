@@ -9,5 +9,5 @@
   * Pages connected via react-router
   * Follows industry best practices and recommended patterns
   
-  ![alt text](https://github.com/varunswarup0/grudges-react-state/blob/master/grudgesReactState.png)
+  ![alt text](https://github.com/varunswarup0/grudges-react-state/blob/master/grudgeReactState.png)
 
