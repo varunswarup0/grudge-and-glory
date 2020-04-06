@@ -3,6 +3,11 @@ html,
   box-sizing: border-box;
 }
 
+body {
+  background-image: 'grudgeBackground.jpg';
+  background-repeat: repeat;
+}
+
 body,
 input {
   font: caption;
