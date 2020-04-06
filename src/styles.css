@@ -4,8 +4,20 @@ html,
 }
 
 body {
-  background-image: 'grudgeBackground.jpg';
-  background-repeat: repeat;
+  background-image: url('https://raw.githubusercontent.com/varunswarup0/grudges-react-state/master/src/grudgeBackground.jpg');
+  background-position: center; /* Center the image */
+  background-repeat: round;
+  background-size: contain;
+}
+
+.Grudge-count {
+  color: ivory;
+  font-size: xx-large;
+}
+
+.Grudge-count span {
+  font-weight: 600;
+  color: #fbbfcd;
 }
 
 body,
@@ -67,6 +79,7 @@ input[type='submit'].full-width {
   border: 1px solid #f4466e;
   padding: 1em;
   margin: 1em 0;
+  background-color: antiquewhite;
 }
 
 .Grudge h3 {
