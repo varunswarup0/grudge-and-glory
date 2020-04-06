@@ -1,14 +1,13 @@
-# DAD JOKES
+# GRUDGES
 
 |[DOCUMENTATION](https://reactjs.org/docs/getting-started.html "React's Docs")       |
 | ------------- |
 
-> This application has a very colorful and minimalistic design made to let one thoroughly enjoy these jokes.
-> One can load more dad jokes; share jokes, and perpetuate this beautiful tradition!
+>  All right, so we're gonna look at the next app, which is this idea of grudge list, which is definitely not a to-do list at all. Cuz to-do lists are boring. This is just a list for keeping track of people who have wronged me. [COUGH] And you can see that there's no ability to remove anyone from the list. They can be forgiven, but they cannot be forgotten, right? So they stay on the list no matter what.
 
   * Includes CRA to kickstart React app
   * Pages connected via react-router
   * Follows industry best practices and recommended patterns
   
-  ![alt text](https://github.com/varunswarup0/dad-jokes/blob/master/dad-jokes.png)
+  ![alt text](https://github.com/varunswarup0/grudges-react-state/blob/master/grudgesReactState.png)
 
