@@ -3,23 +3,6 @@ html,
   box-sizing: border-box;
 }
 
-body {
-  background-image: url('https://raw.githubusercontent.com/varunswarup0/grudges-react-state/master/src/grudgeBackground.jpg');
-  background-position: center; /* Center the image */
-  background-repeat: round;
-  background-size: contain;
-}
-
-.Grudge-count {
-  color: ivory;
-  font-size: xx-large;
-}
-
-.Grudge-count span {
-  font-weight: 600;
-  color: #fbbfcd;
-}
-
 body,
 input {
   font: caption;
@@ -49,6 +32,7 @@ button:hover,
 .button:hover,
 input[type='submit']:hover {
   background-color: #f65e81;
+  cursor: pointer;
 }
 
 button:active,
@@ -79,7 +63,6 @@ input[type='submit'].full-width {
   border: 1px solid #f4466e;
   padding: 1em;
   margin: 1em 0;
-  background-color: antiquewhite;
 }
 
 .Grudge h3 {
@@ -96,4 +79,9 @@ input[type='submit'].full-width {
 
 .NewGrudge-input {
   width: 100%;
+}
+
+button:disabled {
+  background-color: #fff;
+  color: #f4466e;
 }
