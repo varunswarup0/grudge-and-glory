@@ -32,6 +32,16 @@ const reducer = (state = defaultState, action) => {
       future: []
     };
   }
+  if (action.type === 'UNDO') {
+    const [newPresent, ...newPast] = state.past;
+    return {
+      past: newPast,
+      present: newPresent,
+      future: [state.present, ...state.future]
+    };
+  }
+
+  return state;
 };
 
 const defaultState = {
@@ -42,6 +52,7 @@ const defaultState = {
 
 export const GrudgeProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, defaultState);
+  // console.log(state.present);
   const grudges = state.present;
   const isPast = !!state.past.length;
   const isFuture = !!state.future.length;
