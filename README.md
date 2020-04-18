@@ -10,5 +10,5 @@
   * Follows industry best practices and recommended patterns
   * Removed needless re-renders 
   
-  ![alt text](https://github.com/varunswarup0/grudges-react-state/blob/master/grudgeReactState.png)
+  ![alt text](https://github.com/varunswarup0/grudges-react-state/blob/master/grudeAndGlory.png)
 
