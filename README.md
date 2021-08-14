@@ -717,10 +717,6 @@ const Grudge = React.memo(({ grudge, forgive }) => {
 export default Grudge;
 ```
 
-#### Exercise
-
-Can you implement `NewGrudgeContainer`?
-
   
   ![alt text](https://github.com/varunswarup0/grudges-react-state/blob/master/grudeAndGlory.png)
 
