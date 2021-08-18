@@ -1,9 +1,9 @@
 # GRUDGE AND GLORY
 
-|[DOCUMENTATION](https://reactjs.org/docs/getting-started.html "React's Docs")       |
-| ------------- |
+| [DOCUMENTATION](https://reactjs.org/docs/getting-started.html "React's Docs") |
+| ----------------------------------------------------------------------------- |
 
->  All right, so we're gonna look at the next app, which is this idea of grudge list, which is definitely not a to-do list at all. Cuz to-do lists are boring. This is just a list for keeping track of people who have wronged me. [COUGH] And you can see that there's no ability to remove anyone from the list. They can be forgiven, but they cannot be forgotten, right? So they stay on the list no matter what.
+> All right, so we're gonna look at the next app, which is this idea of grudge list, which is definitely not a to-do list at all. Cuz to-do lists are boring. This is just a list for keeping track of people who have wronged me. [COUGH] And you can see that there's no ability to remove anyone from the list. They can be forgiven, but they cannot be forgotten, right? So they stay on the list no matter what.
 
 - **Prop drilling**: We are basically divorcing the state management from the UI using `Context API` and `useReducer`. This will lead us to refactorable codebase and better code maintainability. _For example:_ `Grudges` needs to receive `toggleForgiveness` even though it will never use it. It's just passing it down to `Grudge`.
 - **Needless re-renders**: Here, by utilising `useCallback, useReducer` and `React.memo` we are restricting the unaffected part to re render. _For example_: Everything re-renders even when we just check a single checkbox. We could try to get clever with some of React's performance helpers—or we can just manage our state better.
@@ -75,7 +75,7 @@ const reducer = (state = [], action) => {
 Let's make an action creator
 
 ```js
-const forgiveGrudge = id => {
+const forgiveGrudge = (id) => {
   dispatch({
     type: GRUDGE_FORGIVE,
     payload: {
@@ -89,7 +89,7 @@ We'll also update the reducer here.
 
 ```js
 if (action.type === GRUDGE_FORGIVE) {
-  return state.map(grudge => {
+  return state.map((grudge) => {
     if (grudge.id === action.payload.id) {
       return { ...grudge, forgiven: !grudge.forgiven };
     }
@@ -112,7 +112,7 @@ That prop drilling isn't great, but we'll deal with it in a bit.
 - Wrap `NewGrudge` and `Grudge` in `React.memo`
 - Notice how we can reduce re-renders
 
-## __The Context API__
+## **The Context API**
 
 What if two very different distant cousin components needed the same data?
 Modern builds of React allow you to use something called the Context API to make this better. It's basically a way for very different pieces of your application to communicate with each other.
@@ -141,7 +141,7 @@ const reducer = (state = [], action) => {
   }
 
   if (action.type === GRUDGE_FORGIVE) {
-    return state.map(grudge => {
+    return state.map((grudge) => {
       if (grudge.id === action.payload.id) {
         return { ...grudge, forgiven: !grudge.forgiven };
       }
@@ -169,7 +169,7 @@ export const GrudgeProvider = ({ children }) => {
   );
 
   const toggleForgiveness = useCallback(
-    id => {
+    (id) => {
       dispatch({
         type: GRUDGE_FORGIVE,
         payload: {
@@ -233,7 +233,7 @@ const Grudges = ({ grudges = [] }) => {
   return (
     <section className="Grudges">
       <h2>Grudges ({grudges.length})</h2>
-      {grudges.map(grudge => (
+      {grudges.map((grudge) => (
         <Grudge key={grudge.id} grudge={grudge} />
       ))}
     </section>
@@ -256,7 +256,7 @@ const Grudges = () => {
   return (
     <section className="Grudges">
       <h2>Grudges ({grudges.length})</h2>
-      {grudges.map(grudge => (
+      {grudges.map((grudge) => (
         <Grudge key={grudge.id} grudge={grudge} />
       ))}
     </section>
@@ -323,7 +323,7 @@ const NewGrudge = () => {
 export default NewGrudge;
 ```
 
-## __Implementing Undo/Redo__
+## **Implementing Undo/Redo**
 
 ```js
 {
@@ -371,7 +371,7 @@ const defaultGrudges = {
 export const GrudgeProvider = ({ children }) => {
   const [grudges, setGrudges] = useState({});
 
-  const addGrudge = grudge => {
+  const addGrudge = (grudge) => {
     grudge.id = id();
     setGrudges({
       [grudge.id]: grudge,
@@ -379,7 +379,7 @@ export const GrudgeProvider = ({ children }) => {
     });
   };
 
-  const toggleForgiveness = id => {
+  const toggleForgiveness = (id) => {
     const newGrudges = { ...grudges };
     const target = grudges[id];
     target.forgiven = !target.forgiven;
@@ -429,7 +429,9 @@ const reducer = (state, action) => {
   if (action.type === FORGIVE_GRUDGE) {
     return {
       past: [],
-      present: state.present.filter(grudge => grudge.id !== action.payload.id),
+      present: state.present.filter(
+        (grudge) => grudge.id !== action.payload.id
+      ),
       future: []
     };
   }
@@ -552,7 +554,7 @@ export const reducer = (state = [], action) => {
   }
 
   if (action.type === GRUDGE_FORGIVE) {
-    return state.map(grudge => {
+    return state.map((grudge) => {
       if (grudge.id === action.payload.id) {
         return { ...grudge, forgiven: !grudge.forgiven };
       }
@@ -583,27 +585,25 @@ export const Provider = ({ reducer, initialState, children }) => {
 Next, we'll make the `connect` function.
 
 ```js
-export const connect = (
-  mapStateToProps,
-  mapDispatchToProps
-) => Component => ownProps => {
-  const { state, dispatch } = useContext(Context);
+export const connect =
+  (mapStateToProps, mapDispatchToProps) => (Component) => (ownProps) => {
+    const { state, dispatch } = useContext(Context);
 
-  let stateProps = {};
-  let dispatchProps = {};
+    let stateProps = {};
+    let dispatchProps = {};
 
-  if (isFunction(mapStateToProps)) {
-    stateProps = mapStateToProps(state, ownProps);
-  }
+    if (isFunction(mapStateToProps)) {
+      stateProps = mapStateToProps(state, ownProps);
+    }
 
-  if (isFunction(mapDispatchToProps)) {
-    dispatchProps = mapDispatchToProps(dispatch, ownProps);
-  }
+    if (isFunction(mapDispatchToProps)) {
+      dispatchProps = mapDispatchToProps(dispatch, ownProps);
+    }
 
-  Component.displayName = `Connected(${Component.displayName})`;
+    Component.displayName = `Connected(${Component.displayName})`;
 
-  return <Component {...stateProps} {...dispatchProps} {...ownProps} />;
-};
+    return <Component {...stateProps} {...dispatchProps} {...ownProps} />;
+  };
 ```
 
 We're going to make three container functions:
@@ -643,7 +643,7 @@ ReactDOM.render(
 import { connect } from './connect';
 import Grudges from './Grudges';
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   console.log({ state });
   return { grudges: state };
 };
@@ -683,7 +683,7 @@ const Grudges = ({ grudges }) => {
   return (
     <section className="Grudges">
       <h2>Grudges ({grudges.length})</h2>
-      {grudges.map(grudge => (
+      {grudges.map((grudge) => (
         <GrudgeContainer key={grudge.id} grudge={grudge} />
       ))}
     </section>
@@ -716,7 +716,3 @@ const Grudge = React.memo(({ grudge, forgive }) => {
 
 export default Grudge;
 ```
-
-  
-  ![alt text](https://github.com/varunswarup0/grudges-react-state/blob/master/grudeAndGlory.png)
-
